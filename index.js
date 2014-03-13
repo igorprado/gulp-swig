@@ -42,8 +42,10 @@ module.exports = function(options){
       } else {
         var jsonPath = ext(file.path, '.json');  
       }
-      var json = JSON.parse(fs.readFileSync(jsonPath));
-      data = extend(json, data);
+      if (fs.existsSync(jsonPath)) {
+        var json = JSON.parse(fs.readFileSync(jsonPath));
+        data = extend(json, data);  
+      }
     }
 
     var newFile = clone(file);
